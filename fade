@@ -6,8 +6,8 @@ fade () {
     local -ri RD=R2-R1  GD=G2-G1  BD=B2-B1
     local -r M=$3
     local -ri ML=${#3}
-    for ((step=0;step<$ML;step++)); {
-        local -i RS=R1+RD*$step/$ML  GS=G1+GD*$step/$ML  BS=B1+BD*$step/$ML
+    for ((step=0;step<ML;step++)); {
+        local -i RS=R1+RD*step/ML  GS=G1+GD*step/ML  BS=B1+BD*step/ML
         echo -ne "\e[38;2;$RS;$GS;${BS}m"
         echo -ne "${M:$step:1}"
     }
