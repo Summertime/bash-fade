@@ -1,5 +1,9 @@
 #!/bin/bash
 fade () {
+    if [[ ${1-} == '-ps' ]]; then
+        local -r L='\001' R='\002'
+        shift
+    fi
     [[ $# -ne 3 ]] && return 1
     local -ri R1=16#${1:0:2}  G1=16#${1:2:2}  B1=16#${1:4:2}
     local -ri R2=16#${2:0:2}  G2=16#${2:2:2}  B2=16#${2:4:2}
@@ -8,7 +12,7 @@ fade () {
     local -ri ML=${#3}
     for ((step=0;step<ML;step++)); {
         local -i RS=R1+RD*step/ML  GS=G1+GD*step/ML  BS=B1+BD*step/ML
-        echo -ne "\e[38;2;$RS;$GS;${BS}m"
+        echo -ne "${L-}\e[38;2;$RS;$GS;${BS}m${R-}"
         echo -ne "${M:$step:1}"
     }
     echo
